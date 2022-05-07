@@ -11,7 +11,6 @@ function App() {
   useEffect(() => {
     initAuth();
   }, []);
-  console.log(getToken());
   return (
     <ThemeProvider theme={theme}>
       <Home />

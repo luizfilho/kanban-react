@@ -1,10 +1,5 @@
 import styled from "styled-components";
-
-export enum ColumnTypes {
-  TODO = "TODO",
-  DOING = "DOING",
-  DONE = "DONE",
-}
+import { CardsType } from "@/services/cards/dtoCards";
 
 export const Container = styled.div`
   display: grid;
@@ -15,14 +10,14 @@ export const Container = styled.div`
   margin-top: 24px;
 `;
 
-export const Column = styled.div<{ type: ColumnTypes }>`
+export const Column = styled.div<{ type: CardsType }>`
   height: 400px;
   background-color: ${({ theme, type }) => theme.colors[type].background};
 
   border-radius: 32px;
 `;
 
-export const TitleColumn = styled.h3<{ type: ColumnTypes }>`
+export const TitleColumn = styled.h3<{ type: CardsType }>`
   margin: 0px;
   color: ${({ theme, type }) => theme.colors[type].title};
   margin: 24px;
