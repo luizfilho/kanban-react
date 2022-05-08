@@ -27,10 +27,19 @@ const useCardsService = () => {
     }
   }, []);
 
+  const removeCard = useCallback(async (cardId: string) => {
+    setLoading(true);
+    try {
+      const { data } = await CardsService.removeCard(cardId);
+      return data;
+    } catch (error) {}
+  }, []);
+
   return {
     loading,
     createNewCard,
     getCards,
+    removeCard,
   };
 };
 

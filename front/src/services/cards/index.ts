@@ -22,5 +22,11 @@ export class CardsService {
     const url = `${Variables.urlApi}/cards`;
   }
 
-  static removeTodo() {}
+  static async removeCard(cardId: string) {
+    const url = `${Variables.urlApi}/cards/${cardId}`;
+
+    const response = await AxiosApi.delete<DtoCards[]>(url);
+
+    return response;
+  }
 }

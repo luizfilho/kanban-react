@@ -7,14 +7,25 @@ interface UseCardProps {
 }
 
 const useCards = ({ handleModal }: UseCardProps) => {
-  const [cards, setCards] = useState<DtoCards[]>([]);
-  const { loading, createNewCard, getCards: getAllCards } = useCardsService();
+  const [cards, setCards] = useState<DtoCards[] | []>([]);
+  const {
+    loading,
+    createNewCard,
+    getCards: getAllCards,
+    removeCard,
+  } = useCardsService();
 
   const handleSaveNewCard = async (newCard: DtoCard) => {
+    await createNewCard(newCard);
+    getCards();
+    handleModal();
+  };
+
+  const handleDeleteCard = async (cardId: string) => {
     try {
-      await createNewCard(newCard);
-      getCards();
-      handleModal();
+      await removeCard(cardId);
+      const newCards = cards.filter((card) => card.id !== cardId);
+      setCards(newCards);
     } catch (error) {}
   };
 
@@ -27,6 +38,8 @@ const useCards = ({ handleModal }: UseCardProps) => {
     }
   }, []);
 
+  const handleStatusCard = () => {};
+
   useEffect(() => {
     getCards();
   }, []);
@@ -35,6 +48,7 @@ const useCards = ({ handleModal }: UseCardProps) => {
     handleSaveNewCard,
     cards,
     loading,
+    handleDeleteCard,
   };
 };
 

@@ -8,11 +8,12 @@ import {
 } from "react-icons/fi";
 import * as S from "./styles";
 
-interface CardProps {
+export interface CardProps {
   card: DtoCards;
+  onDeleteCard: (cardId: string) => void;
 }
 
-export const Card = ({ card }: CardProps) => {
+export const Card = ({ card, onDeleteCard }: CardProps) => {
   return (
     <S.Container>
       <S.ContainerTitle>
@@ -26,7 +27,7 @@ export const Card = ({ card }: CardProps) => {
         ) : (
           <div />
         )}
-        <FiTrash size={20} />
+        <FiTrash size={20} onClick={() => onDeleteCard(card.id)} />
         {card.lista !== StatusCard.DONE ? (
           <FiArrowRightCircle size={20} />
         ) : (

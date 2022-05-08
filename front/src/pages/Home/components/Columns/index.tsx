@@ -1,9 +1,9 @@
 import React from "react";
-import * as S from "./styles";
 import { DtoCards, StatusCard } from "@/services/cards/dtoCards";
-import Card from "../Card";
+import Card, { CardProps } from "../Card";
+import * as S from "./styles";
 
-interface CollumnsProps {
+interface CollumnsProps extends Omit<CardProps, "card"> {
   cards?: DtoCards[];
 }
 const allColumns = [
@@ -11,11 +11,13 @@ const allColumns = [
   { status: StatusCard.DOING, title: "In progress" },
   { status: StatusCard.DONE, title: "Done" },
 ];
-const Columns = ({ cards }: CollumnsProps) => {
+const Columns = ({ cards, onDeleteCard }: CollumnsProps) => {
   const getCardsByType = (status: StatusCard) => {
     return cards
       ?.filter((card) => card.lista === status)
-      .map((card) => <Card key={card.id} card={card} />);
+      .map((card) => (
+        <Card key={card.id} card={card} onDeleteCard={onDeleteCard} />
+      ));
   };
 
   return (

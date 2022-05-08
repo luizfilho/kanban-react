@@ -9,12 +9,14 @@ import NewCardModal from "./components/NewCardModal";
 import * as S from "./styles";
 
 const Home = () => {
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const handleModal = () => {
     setIsOpenModal(!isOpenModal);
   };
-  const { loading, handleSaveNewCard, cards } = useCards({ handleModal });
+  const { loading, handleSaveNewCard, handleDeleteCard, cards } = useCards({
+    handleModal,
+  });
 
-  const [isOpenModal, setIsOpenModal] = useState(false);
   return (
     <S.Container>
       <NewCardModal
@@ -30,7 +32,7 @@ const Home = () => {
           icon={<AiOutlinePlus />}
         />
       </S.ContainerAddTask>
-      <Columns cards={cards} />
+      <Columns cards={cards} onDeleteCard={handleDeleteCard} />
     </S.Container>
   );
 };
