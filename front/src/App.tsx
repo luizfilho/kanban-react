@@ -4,16 +4,15 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/theme";
 import { getToken } from "./shared/utils/local-storage";
 import { useAuth } from "./hooks/useAuth";
+import Auth from "@/containers/Auth";
 import "./index.css";
 
 function App() {
-  const { initAuth } = useAuth();
-  useEffect(() => {
-    initAuth();
-  }, []);
   return (
     <ThemeProvider theme={theme}>
-      <Home />
+      <Auth>
+        <Home />
+      </Auth>
     </ThemeProvider>
   );
 }

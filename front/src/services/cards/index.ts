@@ -12,6 +12,10 @@ export class CardsService {
 
   static async createCard(newCard: Omit<DtoCards, "id">) {
     const url = `${Variables.urlApi}/cards`;
+
+    const response = await AxiosApi.post(url, newCard);
+
+    return response;
   }
 
   static async updateCard(card: DtoCards) {

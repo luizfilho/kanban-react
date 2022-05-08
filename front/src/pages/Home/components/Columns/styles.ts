@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CardsType } from "@/services/cards/dtoCards";
+import { StatusCard } from "@/services/cards/dtoCards";
 
 export const Container = styled.div`
   display: grid;
@@ -10,15 +10,15 @@ export const Container = styled.div`
   margin-top: 24px;
 `;
 
-export const Column = styled.div<{ type: CardsType }>`
-  height: 400px;
-  background-color: ${({ theme, type }) => theme.colors[type].background};
+export const Column = styled.div<{ status: StatusCard }>`
+  height: auto;
+  background-color: ${({ theme, status }) => theme.colors[status].background};
 
   border-radius: 32px;
 `;
 
-export const TitleColumn = styled.h3<{ type: CardsType }>`
+export const TitleColumn = styled.h3<{ status: StatusCard }>`
   margin: 0px;
-  color: ${({ theme, type }) => theme.colors[type].title};
+  color: ${({ theme, status }) => theme.colors[status].title};
   margin: 24px;
 `;

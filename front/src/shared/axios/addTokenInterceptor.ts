@@ -1,9 +1,9 @@
 import { AxiosRequestConfig } from "axios";
+import { useAuth } from "@/hooks/useAuth";
 import { getToken } from "../utils/local-storage";
 
 export async function addTokenInterceptor(configs: AxiosRequestConfig) {
   const token = await getToken();
-  console.log("interceptor", token);
   let newConfigs = configs;
 
   if (token) {
@@ -16,4 +16,11 @@ export async function addTokenInterceptor(configs: AxiosRequestConfig) {
   }
 
   return newConfigs;
+}
+
+export async function refetchTokenExpired(configs: AxiosRequestConfig) {
+  try {
+    // const token = await useAuth().refetchToken();
+    // console.log({ token });
+  } catch (error) {}
 }

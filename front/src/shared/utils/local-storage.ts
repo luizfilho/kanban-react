@@ -1,13 +1,14 @@
-export const setToken = (token: string) => {
-  localStorage.setItem("auth", JSON.stringify(token));
+export const setToken = (token: any) => {
+  localStorage.setItem("auth", token);
 };
 
 export const getToken = () => {
   const token = localStorage.getItem("auth");
+  console.log("TOKEN ==>", { token });
   if (token) {
-    return JSON.parse(token);
+    return token;
   } else {
-    return "";
+    return null;
   }
 };
 export const verifyToken = () => {
