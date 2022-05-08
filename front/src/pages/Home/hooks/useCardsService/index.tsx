@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { CardsService } from "@/services/cards";
-import { DtoCards } from "@/services/cards/dtoCards";
+import { DtoCards, DtoCard } from "@/services/cards/dtoCards";
 
 const useCardsService = () => {
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,21 @@ const useCardsService = () => {
     try {
       const { data } = await CardsService.removeCard(cardId);
       return data;
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const updateCard = useCallback(async (card: DtoCards) => {
+    setLoading(true);
+    try {
+      const { data } = await CardsService.updateCard(card);
+      return data;
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   return {
@@ -40,6 +54,7 @@ const useCardsService = () => {
     createNewCard,
     getCards,
     removeCard,
+    updateCard,
   };
 };
 

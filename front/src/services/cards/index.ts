@@ -2,6 +2,7 @@ import { DtoCards } from "./dtoCards";
 import Variables from "../../config/variables";
 import AxiosApi from "../instances/api";
 import { DtoCardsResponse } from "./dtoCardsResponse";
+import { DtoCard } from "./dtoCards";
 
 export class CardsService {
   static async getCards() {
@@ -19,13 +20,17 @@ export class CardsService {
   }
 
   static async updateCard(card: DtoCards) {
-    const url = `${Variables.urlApi}/cards`;
+    const url = `${Variables.urlApi}/cards/${card.id}`;
+
+    const response = await AxiosApi.put<DtoCard>(url, card);
+
+    return response;
   }
 
   static async removeCard(cardId: string) {
     const url = `${Variables.urlApi}/cards/${cardId}`;
 
-    const response = await AxiosApi.delete<DtoCards[]>(url);
+    const response = await AxiosApi.delete<DtoCardsResponse>(url);
 
     return response;
   }

@@ -11,12 +11,17 @@ const allColumns = [
   { status: StatusCard.DOING, title: "In progress" },
   { status: StatusCard.DONE, title: "Done" },
 ];
-const Columns = ({ cards, onDeleteCard }: CollumnsProps) => {
+const Columns = ({ cards, onDeleteCard, onChangeStatus }: CollumnsProps) => {
   const getCardsByType = (status: StatusCard) => {
     return cards
       ?.filter((card) => card.lista === status)
       .map((card) => (
-        <Card key={card.id} card={card} onDeleteCard={onDeleteCard} />
+        <Card
+          key={card.id}
+          card={card}
+          onDeleteCard={onDeleteCard}
+          onChangeStatus={onChangeStatus}
+        />
       ));
   };
 

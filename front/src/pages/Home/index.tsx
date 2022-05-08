@@ -13,7 +13,13 @@ const Home = () => {
   const handleModal = () => {
     setIsOpenModal(!isOpenModal);
   };
-  const { loading, handleSaveNewCard, handleDeleteCard, cards } = useCards({
+  const {
+    loading,
+    handleSaveNewCard,
+    handleDeleteCard,
+    cards,
+    handleStatusCard,
+  } = useCards({
     handleModal,
   });
 
@@ -32,7 +38,11 @@ const Home = () => {
           icon={<AiOutlinePlus />}
         />
       </S.ContainerAddTask>
-      <Columns cards={cards} onDeleteCard={handleDeleteCard} />
+      <Columns
+        cards={cards}
+        onDeleteCard={handleDeleteCard}
+        onChangeStatus={handleStatusCard}
+      />
     </S.Container>
   );
 };

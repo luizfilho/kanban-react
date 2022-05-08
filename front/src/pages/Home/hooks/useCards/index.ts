@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { DtoCard, DtoCards } from "@/services/cards/dtoCards";
+import { DtoCard, DtoCards, StatusCard } from "@/services/cards/dtoCards";
 import { useCardsService } from "../useCardsService";
 
 interface UseCardProps {
@@ -13,6 +13,7 @@ const useCards = ({ handleModal }: UseCardProps) => {
     createNewCard,
     getCards: getAllCards,
     removeCard,
+    updateCard,
   } = useCardsService();
 
   const handleSaveNewCard = async (newCard: DtoCard) => {
@@ -38,7 +39,28 @@ const useCards = ({ handleModal }: UseCardProps) => {
     }
   }, []);
 
-  const handleStatusCard = () => {};
+  const handleStatusCard = async (card: DtoCards, newStatus: StatusCard) => {
+    try {
+      const newCard: DtoCards = {
+        ...card,
+        lista: newStatus,
+      };
+
+      console.log({ newCard, newStatus });
+      const data = await updateCard(newCard);
+
+      const newCards = cards.map((currentCard) =>
+        currentCard.id === newCard.id
+          ? {
+              ...currentCard,
+              lista: newStatus,
+            }
+          : currentCard
+      );
+      setCards(newCards);
+      console.log(data);
+    } catch (error) {}
+  };
 
   useEffect(() => {
     getCards();
@@ -49,6 +71,7 @@ const useCards = ({ handleModal }: UseCardProps) => {
     cards,
     loading,
     handleDeleteCard,
+    handleStatusCard,
   };
 };
 
