@@ -4,7 +4,7 @@ import { DtoCards, StatusCard } from "@/services/cards/dtoCards";
 import Card from "../Card";
 
 interface CollumnsProps {
-  cards: DtoCards[];
+  cards?: DtoCards[];
 }
 const allColumns = [
   { status: StatusCard.TODO, title: "To do" },
@@ -14,7 +14,7 @@ const allColumns = [
 const Columns = ({ cards }: CollumnsProps) => {
   const getCardsByType = (status: StatusCard) => {
     return cards
-      .filter((card) => card.lista === status)
+      ?.filter((card) => card.lista === status)
       .map((card) => <Card key={card.id} card={card} />);
   };
 
@@ -24,7 +24,7 @@ const Columns = ({ cards }: CollumnsProps) => {
         <S.Column status={status} key={status}>
           <>
             <S.TitleColumn status={status}>{title}</S.TitleColumn>
-            {getCardsByType(status)}
+            <S.CollumContent>{getCardsByType(status)}</S.CollumContent>
           </>
         </S.Column>
       ))}

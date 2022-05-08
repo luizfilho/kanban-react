@@ -1,15 +1,25 @@
 import React from "react";
 import * as S from "./styles";
-import NewCard from "../NewCard";
-interface NewCardModalProps {
+import NewCard, { NewCardProps } from "../NewCard";
+
+interface NewCardModalProps extends NewCardProps {
   isOpen: boolean;
 }
-const NewCardModal = ({ isOpen }: NewCardModalProps) => {
+const NewCardModal = ({
+  isOpen,
+  onSave,
+  onCancel,
+  saveLoading,
+}: NewCardModalProps) => {
   return (
     <>
       {isOpen ? (
         <S.Modal isOpen={isOpen}>
-          <NewCard />
+          <NewCard
+            onSave={onSave}
+            onCancel={onCancel}
+            saveLoading={saveLoading}
+          />
         </S.Modal>
       ) : null}
     </>

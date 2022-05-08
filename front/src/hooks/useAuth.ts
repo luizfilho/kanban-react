@@ -37,7 +37,7 @@ const useAuth = () => {
     } else {
       setCheckingToken(false);
     }
-  }, []);
+  }, [login]);
 
   return {
     login,

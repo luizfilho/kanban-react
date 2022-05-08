@@ -10,7 +10,7 @@ const Auth = ({ children }: AuthProps) => {
 
   useEffect(() => {
     initAuth();
-  }, []);
+  }, [initAuth]);
 
   if (checkingToken) {
     return <div>Loading</div>;

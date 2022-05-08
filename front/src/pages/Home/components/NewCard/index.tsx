@@ -2,18 +2,17 @@ import React, { useState } from "react";
 import * as S from "./styles";
 import Button from "@/components/Button";
 import ChipStatus from "../ChipStatus";
-import { StatusCard } from "@/services/cards/dtoCards";
+import { StatusCard, DtoCard } from "@/services/cards/dtoCards";
+import { ClipLoader } from "react-spinners";
+import Fade from "react-reveal/Fade";
 
 export interface NewCardProps {
-  onCancel?: () => void;
-  onSave?: (values: {
-    title: string;
-    content: string;
-    status: StatusCard;
-  }) => void;
+  onCancel: () => void;
+  onSave: (values: DtoCard) => void;
+  saveLoading: boolean;
 }
 const chipsStatus = [StatusCard.TODO, StatusCard.DOING, StatusCard.DONE];
-const NewCard = ({}: NewCardProps) => {
+const NewCard = ({ onCancel, onSave, saveLoading }: NewCardProps) => {
   const [selectedStatus, setSelectedStatus] = useState<StatusCard>(
     StatusCard.TODO
   );
@@ -31,45 +30,61 @@ const NewCard = ({}: NewCardProps) => {
   const handleContent = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
   };
+
+  const handleSave = () => {
+    console.log("chamou");
+    onSave({ titulo: title, conteudo: content, lista: selectedStatus });
+  };
   return (
-    <S.Container>
-      <S.Title>New Task</S.Title>
-      <input
-        type="text"
-        name="title"
-        placeholder="Titulo"
-        onChange={handleTitle}
-        value={title}
-      />
-      <textarea
-        placeholder="Uma breve descrição"
-        rows={5}
-        onChange={handleContent}
-        value={content}
-      ></textarea>
-      <S.ContainerChips>
-        {chipsStatus.map((status) => (
-          <ChipStatus
-            status={status}
-            onClick={handleSelectedType}
-            selectedStatus={selectedStatus}
-          />
-        ))}
-      </S.ContainerChips>
-      <S.Controls>
-        <Button
-          text="cancelar"
-          onClick={() => console.log("onCancel")}
-          size="small"
-          variant="text"
+    <Fade left>
+      <S.Container>
+        <S.Title>New Task</S.Title>
+        <input
+          type="text"
+          name="title"
+          placeholder="Titulo"
+          onChange={handleTitle}
+          value={title}
+          disabled={saveLoading}
         />
-        <Button
-          text="add task"
-          onClick={() => console.log("onCancel")}
-          size="small"
-        />
-      </S.Controls>
-    </S.Container>
+        <textarea
+          placeholder="Uma breve descrição"
+          rows={5}
+          onChange={handleContent}
+          value={content}
+          disabled={saveLoading}
+        ></textarea>
+        <S.ContainerChips>
+          {chipsStatus.map((status) => (
+            <ChipStatus
+              status={status}
+              onClick={saveLoading ? () => null : handleSelectedType}
+              selectedStatus={selectedStatus}
+              key={status}
+            />
+          ))}
+        </S.ContainerChips>
+        <S.Controls>
+          {saveLoading ? (
+            <ClipLoader />
+          ) : (
+            <>
+              <Button
+                text="cancelar"
+                onClick={() => onCancel()}
+                size="small"
+                variant="text"
+              />
+              <Button
+                text="add task"
+                onClick={() => handleSave()}
+                size="small"
+              />
+            </>
+          )}
+        </S.Controls>
+      </S.Container>
+    </Fade>
   );
 };
 

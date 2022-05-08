@@ -10,3 +10,5 @@ export interface DtoCards {
   conteudo: string;
   lista: StatusCard;
 }
+
+export type DtoCard = Omit<DtoCards, "id">;

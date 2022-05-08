@@ -1,28 +1,36 @@
 import { useState, useCallback, useEffect } from "react";
 import { CardsService } from "@/services/cards";
+import { DtoCards } from "@/services/cards/dtoCards";
 
 const useCardsService = () => {
-  const [cards, setCards] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const load = useCallback(async () => {
+  const createNewCard = useCallback(async (newCard: Omit<DtoCards, "id">) => {
     setLoading(true);
     try {
-      const { data } = await CardsService.getCards();
-      setCards(data);
+      const { data } = await CardsService.createCard(newCard);
+      return data;
     } catch (error) {
     } finally {
       setLoading(false);
     }
   }, []);
 
-  useEffect(() => {
-    load();
+  const getCards = useCallback(async () => {
+    setLoading(true);
+    try {
+      const { data } = await CardsService.getCards();
+      return data;
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   return {
-    cards,
     loading,
+    createNewCard,
+    getCards,
   };
 };
 

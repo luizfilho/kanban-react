@@ -12,6 +12,7 @@ export const Modal = styled.div<{ isOpen: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 `;
 
 export const Content = styled.div``;
