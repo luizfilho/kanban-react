@@ -1,5 +1,6 @@
 import React from "react";
 import { StatusCard, DtoCards } from "@/services/cards/dtoCards";
+import Fade from "react-reveal/Fade";
 import {
   FiEdit2,
   FiArrowRightCircle,
@@ -15,53 +16,50 @@ export interface CardProps {
 }
 
 export const Card = ({ card, onDeleteCard, onChangeStatus }: CardProps) => {
-  // righ && in progress => done
-  // righ && in todo => inpprogess
-  //left && in progress => todo
-  // left && done => inprogress
-
-  //
-
-  const handleChangeStatus = (direction: "left" | "right") => {
-    if (direction === "right" && card.lista === StatusCard.DOING) {
-      console.log("here");
-      return onChangeStatus(card, StatusCard.DONE);
+  const handleChangeStatusRight = () => {
+    if (card.lista === StatusCard.DOING) {
+      onChangeStatus(card, StatusCard.DONE);
     } else {
       onChangeStatus(card, StatusCard.DOING);
     }
-    if (direction === "left" && card.lista === StatusCard.DOING) {
+  };
+
+  const handleChangeStatusLeft = () => {
+    if (card.lista === StatusCard.DOING) {
       return onChangeStatus(card, StatusCard.TODO);
     } else {
       return onChangeStatus(card, StatusCard.DOING);
     }
   };
   return (
-    <S.Container>
-      <S.ContainerTitle>
-        <S.Title>{card.titulo}</S.Title>
-        <FiEdit2 size={16} />
-      </S.ContainerTitle>
-      <S.Content>{card.conteudo}</S.Content>
-      <S.Controls>
-        {card.lista !== StatusCard.TODO ? (
-          <FiArrowLeftCircle
-            size={20}
-            onClick={() => handleChangeStatus("left")}
-          />
-        ) : (
-          <div />
-        )}
-        <FiTrash size={20} onClick={() => onDeleteCard(card.id)} />
-        {card.lista !== StatusCard.DONE ? (
-          <FiArrowRightCircle
-            size={20}
-            onClick={() => handleChangeStatus("right")}
-          />
-        ) : (
-          <div />
-        )}
-      </S.Controls>
-    </S.Container>
+    <Fade>
+      <S.Container>
+        <S.ContainerTitle>
+          <S.Title>{card.titulo}</S.Title>
+          <FiEdit2 size={16} />
+        </S.ContainerTitle>
+        <S.Content>{card.conteudo}</S.Content>
+        <S.Controls>
+          {card.lista !== StatusCard.TODO ? (
+            <FiArrowLeftCircle
+              size={20}
+              onClick={() => handleChangeStatusLeft()}
+            />
+          ) : (
+            <div />
+          )}
+          <FiTrash size={20} onClick={() => onDeleteCard(card.id)} />
+          {card.lista !== StatusCard.DONE ? (
+            <FiArrowRightCircle
+              size={20}
+              onClick={() => handleChangeStatusRight()}
+            />
+          ) : (
+            <div />
+          )}
+        </S.Controls>
+      </S.Container>
+    </Fade>
   );
 };
 

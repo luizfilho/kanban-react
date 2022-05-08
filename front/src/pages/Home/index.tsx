@@ -5,6 +5,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { useCardsService } from "./hooks/useCardsService";
 import { useCards } from "./hooks/useCards";
 import NewCardModal from "./components/NewCardModal";
+import { toast } from "react-toastify";
 
 import * as S from "./styles";
 

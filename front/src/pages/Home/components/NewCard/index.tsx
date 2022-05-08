@@ -5,6 +5,7 @@ import ChipStatus from "../ChipStatus";
 import { StatusCard, DtoCard } from "@/services/cards/dtoCards";
 import { ClipLoader } from "react-spinners";
 import Fade from "react-reveal/Fade";
+import { useNotification } from "@/hooks/useNotification";
 
 export interface NewCardProps {
   onCancel: () => void;
@@ -13,6 +14,7 @@ export interface NewCardProps {
 }
 const chipsStatus = [StatusCard.TODO, StatusCard.DOING, StatusCard.DONE];
 const NewCard = ({ onCancel, onSave, saveLoading }: NewCardProps) => {
+  const notification = useNotification();
   const [selectedStatus, setSelectedStatus] = useState<StatusCard>(
     StatusCard.TODO
   );
@@ -30,10 +32,22 @@ const NewCard = ({ onCancel, onSave, saveLoading }: NewCardProps) => {
   const handleContent = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
   };
-
+  const validateInfos = () => {
+    let hasErrors = false;
+    if (!title.trim().length) {
+      notification.error("Adicione um título");
+      hasErrors = true;
+    }
+    if (!content.trim().length) {
+      notification.error("Adicione uma descrição");
+      hasErrors = true;
+    }
+    return hasErrors;
+  };
   const handleSave = () => {
-    console.log("chamou");
-    onSave({ titulo: title, conteudo: content, lista: selectedStatus });
+    if (!validateInfos()) {
+      onSave({ titulo: title, conteudo: content, lista: selectedStatus });
+    }
   };
   return (
     <Fade left>

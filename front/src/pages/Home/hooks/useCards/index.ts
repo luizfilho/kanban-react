@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { DtoCard, DtoCards, StatusCard } from "@/services/cards/dtoCards";
 import { useCardsService } from "../useCardsService";
+import { useNotification } from "@/hooks/useNotification";
 
 interface UseCardProps {
   handleModal: () => void;
@@ -16,10 +17,17 @@ const useCards = ({ handleModal }: UseCardProps) => {
     updateCard,
   } = useCardsService();
 
+  const notification = useNotification();
+
   const handleSaveNewCard = async (newCard: DtoCard) => {
-    await createNewCard(newCard);
-    getCards();
-    handleModal();
+    try {
+      await createNewCard(newCard);
+      getCards();
+      handleModal();
+      notification.success("Card criado!");
+    } catch (error) {
+      notification.error("Erro ao criar o card");
+    }
   };
 
   const handleDeleteCard = async (cardId: string) => {
@@ -27,7 +35,10 @@ const useCards = ({ handleModal }: UseCardProps) => {
       await removeCard(cardId);
       const newCards = cards.filter((card) => card.id !== cardId);
       setCards(newCards);
-    } catch (error) {}
+      notification.success("Card removido!");
+    } catch (error) {
+      notification.error("Erro ao remover o card");
+    }
   };
 
   const getCards = useCallback(async () => {
@@ -46,7 +57,6 @@ const useCards = ({ handleModal }: UseCardProps) => {
         lista: newStatus,
       };
 
-      console.log({ newCard, newStatus });
       const data = await updateCard(newCard);
 
       const newCards = cards.map((currentCard) =>
