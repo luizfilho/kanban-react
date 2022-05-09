@@ -2,12 +2,7 @@ import React from "react";
 import Fade from "react-reveal/Fade";
 import MDEditor from "@uiw/react-md-editor";
 
-import {
-  FiEdit2,
-  FiArrowRightCircle,
-  FiArrowLeftCircle,
-  FiTrash,
-} from "react-icons/fi";
+import { FiArrowRightCircle, FiArrowLeftCircle, FiTrash } from "react-icons/fi";
 import { MdModeEditOutline } from "react-icons/md";
 import { StatusCard, DtoCards } from "@/services/cards/dtoCards";
 import * as S from "./styles";

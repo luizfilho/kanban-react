@@ -15,6 +15,7 @@ export const Content = styled.div`
   border: 1px solid #ccc;
   border-radius: 8px;
   margin: 16px 0px;
+  min-height: 220px;
 `;
 
 export const ChipStatus = styled.div<{ status?: StatusCard }>`

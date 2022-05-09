@@ -38,7 +38,7 @@ const useCards = ({ handleModal, isOpenModal }: UseCardProps) => {
       setCards(newCards);
       notification.success("Card removido!");
     } catch (error) {
-      notification.error("Erro ao remover o card");
+      notification.error("Erro ao remover o card =(");
     }
   };
 
@@ -46,10 +46,11 @@ const useCards = ({ handleModal, isOpenModal }: UseCardProps) => {
     try {
       const data = await getAllCards();
       setCards(data ?? []);
+      return data;
     } catch (error) {
-    } finally {
+      notification.error("Erro ao buscar os cards =(");
     }
-  }, []);
+  }, [getAllCards, notification]);
 
   const handleStatusCard = async (card: DtoCards, newStatus: StatusCard) => {
     try {

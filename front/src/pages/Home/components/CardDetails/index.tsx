@@ -22,7 +22,7 @@ export interface CardDetailsProps {
   initialViewMode?: ViewMode;
 }
 const chipsStatus = [StatusCard.TODO, StatusCard.DOING, StatusCard.DONE];
-const CardDetailsProps = ({
+const CardDetails = ({
   onCancel,
   onSave,
   saveLoading,
@@ -170,4 +170,4 @@ const CardDetailsProps = ({
   );
 };
 
-export default CardDetailsProps;
+export default CardDetails;

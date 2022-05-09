@@ -42,7 +42,6 @@ const Home = () => {
       ? handleIsOpenModalNewCard
       : handleIsOpenModalEditCard,
   });
-  console.log("initialViewMode", { initialViewMode });
   return (
     <S.Container>
       <NewCardModal

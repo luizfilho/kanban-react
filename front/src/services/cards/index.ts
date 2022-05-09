@@ -2,7 +2,6 @@ import { DtoCards } from "./dtoCards";
 import Variables from "../../config/variables";
 import AxiosApi from "../instances/api";
 import { DtoCardsResponse } from "./dtoCardsResponse";
-import { DtoCard } from "./dtoCards";
 
 export class CardsService {
   static async getCards() {

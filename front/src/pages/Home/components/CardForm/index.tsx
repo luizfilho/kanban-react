@@ -2,8 +2,6 @@ import React from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { StatusCard } from "@/services/cards/dtoCards";
 
-import * as S from "./styles";
-
 interface CardFormProps {
   title: string;
   handleTitle: (value: string) => void;

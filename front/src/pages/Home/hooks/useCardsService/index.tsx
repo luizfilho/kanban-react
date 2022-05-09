@@ -1,6 +1,6 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { CardsService } from "@/services/cards";
-import { DtoCards, DtoCard } from "@/services/cards/dtoCards";
+import { DtoCards } from "@/services/cards/dtoCards";
 
 const useCardsService = () => {
   const [loading, setLoading] = useState(false);
