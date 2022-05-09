@@ -29,7 +29,7 @@ const CardDetailsProps = ({
   card,
   onSaveEdit,
   editMode,
-  initialViewMode = ViewMode.PREVIEW,
+  initialViewMode = ViewMode.WRITE,
 }: CardDetailsProps) => {
   const notification = useNotification();
   const [selectedStatus, setSelectedStatus] = useState<StatusCard>(
@@ -139,7 +139,11 @@ const CardDetailsProps = ({
           </>
         )}
         {viewMode === ViewMode.PREVIEW && (
-          <CardPreview title={title} content={content} />
+          <CardPreview
+            title={title}
+            content={content}
+            status={selectedStatus}
+          />
         )}
 
         <S.Controls>

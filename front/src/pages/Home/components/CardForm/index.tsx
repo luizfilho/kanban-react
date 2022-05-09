@@ -35,6 +35,7 @@ const CardForm = ({
         height={200}
         value={content}
         onChange={(value) => handleContent(value ?? "")}
+        preview={"edit"}
         textareaProps={{
           draggable: false,
           rows: 2,

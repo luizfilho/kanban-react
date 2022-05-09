@@ -8,6 +8,7 @@ import {
   FiArrowLeftCircle,
   FiTrash,
 } from "react-icons/fi";
+import { MdModeEditOutline } from "react-icons/md";
 import { StatusCard, DtoCards } from "@/services/cards/dtoCards";
 import * as S from "./styles";
 
@@ -46,12 +47,12 @@ export const Card = ({
       <S.Container>
         <S.ContainerTitle>
           <S.Title>{card.titulo}</S.Title>
-          <FiEdit2 size={16} onClick={() => onEditCard(card)} />
+          <MdModeEditOutline size={16} onClick={() => onEditCard(card)} />
         </S.ContainerTitle>
         <S.ContainerContent onClick={() => onClickCard(card, true)}>
           <S.Content>
             <MDEditor.Markdown
-              style={{ padding: 8 }}
+              style={{ padding: "8px 0px" }}
               source={card.conteudo}
               linkTarget="_blank"
             />

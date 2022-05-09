@@ -1,3 +1,4 @@
+import { StatusCard } from "@/services/cards/dtoCards";
 import styled from "styled-components";
 
 export const markDownStyles = {
@@ -14,4 +15,18 @@ export const Content = styled.div`
   border: 1px solid #ccc;
   border-radius: 8px;
   margin: 16px 0px;
+`;
+
+export const ChipStatus = styled.div<{ status?: StatusCard }>`
+  color: ${({ theme, status }) => theme.colors[status ?? ""].title};
+  background-color: ${({ theme, status }) =>
+    theme.colors[status ?? ""].background};
+  padding: 8px;
+  border-radius: 8px;
+  font-weight: 600;
+`;
+
+export const ContainerTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

@@ -18,7 +18,6 @@ export const Container = styled.div`
 
 export const Title = styled.h3`
   margin: 0px;
-  text-align: center;
   font-size: 16px;
 `;
 
@@ -26,9 +25,15 @@ export const ContainerTitle = styled.div`
   display: grid;
   grid-template-columns: 90% 10%;
   align-items: center;
-
+  height: 32px;
+  margin-bottom: 4px;
   svg {
     cursor: pointer;
+    height: 100%;
+    padding: 0px 8px;
+    border-radius: 100%;
+    fill: #fff;
+    background-color: ${({ theme }) => theme.colors.primaryColorText};
   }
 `;
 
@@ -50,3 +55,4 @@ export const Controls = styled.div`
     cursor: pointer;
   }
 `;
+export const EditButton = styled.p``;
