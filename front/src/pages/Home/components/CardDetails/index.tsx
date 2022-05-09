@@ -36,8 +36,6 @@ const CardDetails = ({
     card?.lista ?? StatusCard.TODO
   );
   const [viewMode, setViewMode] = useState<ViewMode>(initialViewMode);
-  console.log({ viewMode });
-  console.log({ initialViewMode });
 
   const [title, setTitle] = useState(card?.titulo ?? "");
   const [content, setContent] = useState(card?.conteudo ?? "");

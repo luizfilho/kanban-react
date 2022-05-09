@@ -13,7 +13,6 @@ const Delayed = ({
   const [isShown, setIsShown] = useState(false);
 
   useEffect(() => {
-    console.log(waitBeforeShow);
     setTimeout(() => {
       setIsShown(true);
     }, waitBeforeShow);

@@ -24,7 +24,6 @@ const Home = () => {
   };
 
   const handleSelectedCard = (card: DtoCards, preview?: boolean) => {
-    console.log(preview);
     preview ? setInitialMode(ViewMode.PREVIEW) : setInitialMode(ViewMode.WRITE);
     setCardSelected(card);
     handleIsOpenModalEditCard();
