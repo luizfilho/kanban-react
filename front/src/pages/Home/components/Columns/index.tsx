@@ -11,7 +11,13 @@ const allColumns = [
   { status: StatusCard.DOING, title: "In progress" },
   { status: StatusCard.DONE, title: "Done" },
 ];
-const Columns = ({ cards, onDeleteCard, onChangeStatus }: CollumnsProps) => {
+const Columns = ({
+  cards,
+  onDeleteCard,
+  onChangeStatus,
+  onEditCard,
+  onClickCard,
+}: CollumnsProps) => {
   const getCardsByType = (status: StatusCard) => {
     return cards
       ?.filter((card) => card.lista === status)
@@ -21,6 +27,8 @@ const Columns = ({ cards, onDeleteCard, onChangeStatus }: CollumnsProps) => {
           card={card}
           onDeleteCard={onDeleteCard}
           onChangeStatus={onChangeStatus}
+          onEditCard={onEditCard}
+          onClickCard={onClickCard}
         />
       ));
   };

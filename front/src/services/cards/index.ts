@@ -22,7 +22,7 @@ export class CardsService {
   static async updateCard(card: DtoCards) {
     const url = `${Variables.urlApi}/cards/${card.id}`;
 
-    const response = await AxiosApi.put<DtoCard>(url, card);
+    const response = await AxiosApi.put<DtoCards>(url, card);
 
     return response;
   }

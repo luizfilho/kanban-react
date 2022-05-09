@@ -10,6 +10,8 @@ const NewCardModal = ({
   onSave,
   onCancel,
   saveLoading,
+  card,
+  onSaveEdit,
   initialViewMode,
 }: NewCardModalProps) => {
   return (
@@ -19,6 +21,10 @@ const NewCardModal = ({
           onSave={onSave}
           onCancel={onCancel}
           saveLoading={saveLoading}
+          onSaveEdit={onSaveEdit}
+          initialViewMode={initialViewMode}
+          card={card}
+          editMode
         />
       </Modal>
     </>

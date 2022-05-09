@@ -5,9 +5,10 @@ import { useNotification } from "@/hooks/useNotification";
 
 interface UseCardProps {
   handleModal: () => void;
+  isOpenModal: boolean;
 }
 
-const useCards = ({ handleModal }: UseCardProps) => {
+const useCards = ({ handleModal, isOpenModal }: UseCardProps) => {
   const [cards, setCards] = useState<DtoCards[] | []>([]);
   const {
     loading,
@@ -57,7 +58,7 @@ const useCards = ({ handleModal }: UseCardProps) => {
         lista: newStatus,
       };
 
-      const data = await updateCard(newCard);
+      await updateCard(newCard);
 
       const newCards = cards.map((currentCard) =>
         currentCard.id === newCard.id
@@ -68,7 +69,18 @@ const useCards = ({ handleModal }: UseCardProps) => {
           : currentCard
       );
       setCards(newCards);
-      console.log(data);
+    } catch (error) {}
+  };
+
+  const handleUpdateCard = async (cardUpdated: DtoCards) => {
+    try {
+      await updateCard(cardUpdated);
+      const newCards = cards.map((currentCard) =>
+        currentCard.id === cardUpdated.id ? cardUpdated : currentCard
+      );
+      setCards(newCards);
+      isOpenModal && handleModal();
+      notification.success("Card atualizado!");
     } catch (error) {}
   };
 
@@ -82,6 +94,7 @@ const useCards = ({ handleModal }: UseCardProps) => {
     loading,
     handleDeleteCard,
     handleStatusCard,
+    handleUpdateCard,
   };
 };
 

@@ -2,40 +2,68 @@ import React, { useState } from "react";
 import Button from "@/components/Button";
 import Columns from "./components/Columns";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useCardsService } from "./hooks/useCardsService";
 import { useCards } from "./hooks/useCards";
 import NewCardModal from "./components/NewCardModal";
-import { toast } from "react-toastify";
+import EditCardModal from "./components/EditCardModal";
 
+import { DtoCards } from "@/services/cards/dtoCards";
 import * as S from "./styles";
+import { ViewMode } from "@/enums/ViewMode";
 
 const Home = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const handleModal = () => {
-    setIsOpenModal(!isOpenModal);
+  const [isOpenModalNewCard, setIsOpenModalNewCard] = useState(false);
+  const [isOpenModalEditCard, setIsOpenModalEditCard] = useState(false);
+  const [cardSelected, setCardSelected] = useState<DtoCards>();
+  const [initialViewMode, setInitialMode] = useState<ViewMode>(ViewMode.WRITE);
+  const handleIsOpenModalNewCard = () => {
+    setInitialMode(ViewMode.WRITE);
+    setIsOpenModalNewCard(!isOpenModalNewCard);
+  };
+  const handleIsOpenModalEditCard = () => {
+    setIsOpenModalEditCard(!isOpenModalEditCard);
+  };
+
+  const handleSelectedCard = (card: DtoCards, preview?: boolean) => {
+    preview && setInitialMode(ViewMode.PREVIEW);
+    setCardSelected(card);
+    handleIsOpenModalEditCard();
   };
   const {
+    cards,
     loading,
     handleSaveNewCard,
     handleDeleteCard,
-    cards,
     handleStatusCard,
+    handleUpdateCard,
   } = useCards({
-    handleModal,
+    isOpenModal: isOpenModalNewCard || isOpenModalEditCard,
+    handleModal: isOpenModalNewCard
+      ? handleIsOpenModalNewCard
+      : handleIsOpenModalEditCard,
   });
-
+  console.log("initialViewMode", { initialViewMode });
   return (
     <S.Container>
       <NewCardModal
-        isOpen={isOpenModal}
+        isOpen={isOpenModalNewCard}
         onSave={handleSaveNewCard}
-        onCancel={handleModal}
+        onCancel={handleIsOpenModalNewCard}
         saveLoading={loading}
       />
+
+      <EditCardModal
+        isOpen={isOpenModalEditCard}
+        onCancel={handleIsOpenModalEditCard}
+        saveLoading={loading}
+        onSaveEdit={handleUpdateCard}
+        card={cardSelected}
+        initialViewMode={initialViewMode}
+      />
+
       <S.ContainerAddTask>
         <Button
           text="Add Task"
-          onClick={() => handleModal()}
+          onClick={() => handleIsOpenModalNewCard()}
           icon={<AiOutlinePlus />}
         />
       </S.ContainerAddTask>
@@ -43,6 +71,8 @@ const Home = () => {
         cards={cards}
         onDeleteCard={handleDeleteCard}
         onChangeStatus={handleStatusCard}
+        onEditCard={handleSelectedCard}
+        onClickCard={handleSelectedCard}
       />
     </S.Container>
   );

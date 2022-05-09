@@ -14,5 +14,3 @@ export const Modal = styled.div<{ isOpen: boolean }>`
   align-items: center;
   z-index: 99;
 `;
-
-export const Content = styled.div``;

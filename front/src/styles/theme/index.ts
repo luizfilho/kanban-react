@@ -1,6 +1,8 @@
 import baseStyled, { ThemedStyledInterface } from "styled-components";
 export const theme = {
   colors: {
+    primaryColor: "#EEEEFD",
+    primaryColorText: "#4242DF",
     TODO: {
       background: "#FDF8E9",
       title: "#EFC24D",

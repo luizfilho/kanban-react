@@ -1,21 +1,31 @@
 import React from "react";
-import { StatusCard, DtoCards } from "@/services/cards/dtoCards";
 import Fade from "react-reveal/Fade";
+import MDEditor from "@uiw/react-md-editor";
+
 import {
   FiEdit2,
   FiArrowRightCircle,
   FiArrowLeftCircle,
   FiTrash,
 } from "react-icons/fi";
+import { StatusCard, DtoCards } from "@/services/cards/dtoCards";
 import * as S from "./styles";
 
 export interface CardProps {
   card: DtoCards;
   onDeleteCard: (cardId: string) => void;
   onChangeStatus: (card: DtoCards, newStatus: StatusCard) => void;
+  onEditCard: (card: DtoCards, preview?: boolean) => void;
+  onClickCard: (card: DtoCards, preview?: boolean) => void;
 }
 
-export const Card = ({ card, onDeleteCard, onChangeStatus }: CardProps) => {
+export const Card = ({
+  card,
+  onDeleteCard,
+  onChangeStatus,
+  onEditCard,
+  onClickCard,
+}: CardProps) => {
   const handleChangeStatusRight = () => {
     if (card.lista === StatusCard.DOING) {
       onChangeStatus(card, StatusCard.DONE);
@@ -36,9 +46,17 @@ export const Card = ({ card, onDeleteCard, onChangeStatus }: CardProps) => {
       <S.Container>
         <S.ContainerTitle>
           <S.Title>{card.titulo}</S.Title>
-          <FiEdit2 size={16} />
+          <FiEdit2 size={16} onClick={() => onEditCard(card)} />
         </S.ContainerTitle>
-        <S.Content>{card.conteudo}</S.Content>
+        <S.ContainerContent onClick={() => onClickCard(card, true)}>
+          <S.Content>
+            <MDEditor.Markdown
+              style={{ padding: 8 }}
+              source={card.conteudo}
+              linkTarget="_blank"
+            />
+          </S.Content>
+        </S.ContainerContent>
         <S.Controls>
           {card.lista !== StatusCard.TODO ? (
             <FiArrowLeftCircle

@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const ContainerContent = styled.div`
+  cursor: pointer;
+`;
+
 export const Container = styled.div`
   margin: 16px;
   min-height: 120px;
@@ -29,13 +33,19 @@ export const ContainerTitle = styled.div`
 `;
 
 export const Content = styled.div`
-  height: auto;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Controls = styled.div`
   display: flex;
   justify-content: space-between;
-
+  width: 90%;
+  margin: auto;
+  padding-top: 8px;
   svg {
     cursor: pointer;
   }

@@ -3,7 +3,7 @@ import { StatusCard } from "@/services/cards/dtoCards";
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 25% 25% 25%;
+  grid-template-columns: 30% 30% 30%;
   grid-gap: 24px;
   justify-content: center;
   margin-top: 24px;
