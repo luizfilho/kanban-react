@@ -23,7 +23,7 @@ export const Card = ({
   onClickCard,
 }: CardProps) => {
   const handleChangeStatusRight = () => {
-    if (card.lista === StatusCard.DOING) {
+    if (card.status === StatusCard.DOING) {
       onChangeStatus(card, StatusCard.DONE);
     } else {
       onChangeStatus(card, StatusCard.DOING);
@@ -31,7 +31,7 @@ export const Card = ({
   };
 
   const handleChangeStatusLeft = () => {
-    if (card.lista === StatusCard.DOING) {
+    if (card.status === StatusCard.DOING) {
       return onChangeStatus(card, StatusCard.TODO);
     } else {
       return onChangeStatus(card, StatusCard.DOING);
@@ -41,20 +41,20 @@ export const Card = ({
     <Fade>
       <S.Container>
         <S.ContainerTitle>
-          <S.Title>{card.titulo}</S.Title>
+          <S.Title>{card.title}</S.Title>
           <MdModeEditOutline size={16} onClick={() => onEditCard(card)} />
         </S.ContainerTitle>
         <S.ContainerContent onClick={() => onClickCard(card, true)}>
           <S.Content>
             <MDEditor.Markdown
               style={{ padding: "8px 0px" }}
-              source={card.conteudo}
+              source={card.body}
               linkTarget="_blank"
             />
           </S.Content>
         </S.ContainerContent>
         <S.Controls>
-          {card.lista !== StatusCard.TODO ? (
+          {card.status !== StatusCard.TODO ? (
             <FiArrowLeftCircle
               size={20}
               onClick={() => handleChangeStatusLeft()}
@@ -63,7 +63,7 @@ export const Card = ({
             <div />
           )}
           <FiTrash size={20} onClick={() => onDeleteCard(card.id)} />
-          {card.lista !== StatusCard.DONE ? (
+          {card.status !== StatusCard.DONE ? (
             <FiArrowRightCircle
               size={20}
               onClick={() => handleChangeStatusRight()}

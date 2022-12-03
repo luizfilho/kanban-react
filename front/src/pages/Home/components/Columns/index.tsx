@@ -20,7 +20,7 @@ const Columns = ({
 }: CollumnsProps) => {
   const getCardsByType = (status: StatusCard) => {
     return cards
-      ?.filter((card) => card.lista === status)
+      ?.filter((card) => card.status === status)
       .map((card) => (
         <Card
           key={card.id}

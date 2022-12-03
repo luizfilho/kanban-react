@@ -8,7 +8,7 @@ const useCardsService = () => {
   const createNewCard = useCallback(async (newCard: Omit<DtoCards, "id">) => {
     setLoading(true);
     try {
-      const { data } = await CardsService.createCard(newCard);
+      const data = await CardsService.createCard(newCard);
       return data;
     } catch (error) {
     } finally {
@@ -19,7 +19,7 @@ const useCardsService = () => {
   const getCards = useCallback(async () => {
     setLoading(true);
     try {
-      const { data } = await CardsService.getCards();
+      const data = await CardsService.getCards();
       return data;
     } catch (error) {
     } finally {

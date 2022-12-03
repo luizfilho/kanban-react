@@ -6,15 +6,19 @@ import Auth from "@/containers/Auth";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+const queryClient = new QueryClient();
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <ToastContainer position="top-right" autoClose={3000} closeOnClick />
-      <Auth>
-        <Home />
-      </Auth>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <ToastContainer position="top-right" autoClose={3000} closeOnClick />
+        <Auth>
+          <Home />
+        </Auth>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 

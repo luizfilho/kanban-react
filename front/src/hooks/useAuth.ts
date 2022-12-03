@@ -3,8 +3,8 @@ import { LoginService } from "../services/login";
 import { verifyToken, setToken } from "../shared/utils/local-storage";
 
 const defaultUser = {
-  login: "letscode",
-  senha: "lets@123",
+  login: "luizfilho",
+  senha: "senha123",
 };
 
 const useAuth = () => {

@@ -33,12 +33,12 @@ const CardDetails = ({
 }: CardDetailsProps) => {
   const notification = useNotification();
   const [selectedStatus, setSelectedStatus] = useState<StatusCard>(
-    card?.lista ?? StatusCard.TODO
+    card?.status ?? StatusCard.TODO
   );
   const [viewMode, setViewMode] = useState<ViewMode>(initialViewMode);
 
-  const [title, setTitle] = useState(card?.titulo ?? "");
-  const [content, setContent] = useState(card?.conteudo ?? "");
+  const [title, setTitle] = useState(card?.title ?? "");
+  const [content, setContent] = useState(card?.body ?? "");
 
   const handleViewMode = () => {
     setViewMode((currentViewMode) =>
@@ -78,14 +78,14 @@ const CardDetails = ({
       if (card?.id) {
         onSaveEdit &&
           onSaveEdit({
-            titulo: title,
-            conteudo: content,
-            lista: selectedStatus,
+            title,
+            body: content,
+            status: selectedStatus,
             id: card.id,
           });
       } else {
         onSave &&
-          onSave({ titulo: title, conteudo: content, lista: selectedStatus });
+          onSave({ title, body: content, status: selectedStatus });
       }
     }
   };

@@ -6,9 +6,9 @@ export enum StatusCard {
 
 export interface DtoCards {
   id: string;
-  titulo: string;
-  conteudo: string;
-  lista: StatusCard;
+  title: string;
+  body: string;
+  status: StatusCard;
 }
 
 export type DtoCard = Omit<DtoCards, "id">;

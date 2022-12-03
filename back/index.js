@@ -48,7 +48,7 @@ const jwtValidation = (req, res, next) => {
   next();
 };
 
-app.use(jwtValidation);
+// app.use(jwtValidation);
 
 let cards = [];
 
@@ -58,9 +58,10 @@ app.get("/cards", (req, res) => {
 });
 
 app.post("/cards", (req, res) => {
-  const { titulo, conteudo, lista, id } = req.body;
-  if (titulo && conteudo && lista && !id) {
-    const card = { titulo, conteudo, lista, id: uuid() };
+  const { title, body, status } = req.body;
+
+  if (title && body && status) {
+    const card = { title, body, status, id: uuid() };
     cards.push(card);
     res.status(201).json(card);
   } else return res.sendStatus(400);
@@ -76,10 +77,10 @@ const validateAndLogAlterationOrDeletion = (req, res, next) => {
   if (!card) return res.sendStatus(404);
 
   if (req.method === "PUT") {
-    const { titulo, conteudo, lista, id } = req.body;
+    const { title, body, status, id } = req.body;
     if (urlID !== id)
       return res.status(400).json({ error: "ids não correspondem" });
-    if (!(titulo && conteudo && lista && id)) return res.sendStatus(400);
+    if (!(title && body && status && id)) return res.sendStatus(400);
     console.info(`${dateTime} - Card ${urlID} - ${card.titulo} - Alterar`);
   } else if (req.method === "DELETE") {
     console.info(`${dateTime} - Card ${urlID} - ${card.titulo} - Remover`);
@@ -91,11 +92,19 @@ const validateAndLogAlterationOrDeletion = (req, res, next) => {
 app.use("/cards/:id", validateAndLogAlterationOrDeletion);
 
 app.put("/cards/:id", (req, res) => {
-  const { titulo, conteudo, lista, id } = req.body;
-  const card = cards.find((x) => x.id === id);
-  card.titulo = titulo;
-  card.conteudo = conteudo;
-  card.lista = lista;
+  const { title, body, status, id: _id } = req.body;
+  const card = cards.find((x) => x.id === _id);
+  const cardUpdated = {
+    title,
+    body,
+    status,
+    id: _id,
+  };
+  const newCards = cards.map((card) => {
+    if (card.id === _id) return cardUpdated;
+    else return card;
+  });
+  cards = newCards;
   return res.status(200).json(card);
 });
 
@@ -104,5 +113,6 @@ app.delete("/cards/:id", (req, res) => {
   cards = cards.filter((x) => x.id !== id);
   res.json(cards);
 });
+
 const PORT = 6060;
 app.listen(PORT, () => console.log(`listening on http://localhost:${PORT}`));

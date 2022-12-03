@@ -18,6 +18,7 @@ const useCards = ({ handleModal, isOpenModal }: UseCardProps) => {
     updateCard,
   } = useCardsService();
 
+
   const notification = useNotification();
 
   const handleSaveNewCard = async (newCard: DtoCard) => {
@@ -56,7 +57,7 @@ const useCards = ({ handleModal, isOpenModal }: UseCardProps) => {
     try {
       const newCard: DtoCards = {
         ...card,
-        lista: newStatus,
+        status: newStatus,
       };
 
       await updateCard(newCard);
@@ -65,7 +66,7 @@ const useCards = ({ handleModal, isOpenModal }: UseCardProps) => {
         currentCard.id === newCard.id
           ? {
               ...currentCard,
-              lista: newStatus,
+              status: newStatus,
             }
           : currentCard
       );
@@ -87,7 +88,7 @@ const useCards = ({ handleModal, isOpenModal }: UseCardProps) => {
 
   useEffect(() => {
     getCards();
-  }, []);
+  }, [getCards]);
 
   return {
     handleSaveNewCard,

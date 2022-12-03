@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import Button from "@/components/Button";
 import Columns from "./components/Columns";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useCards } from "./hooks/useCards";
+// import { useCards } from "./hooks/useCards";
 import NewCardModal from "./components/NewCardModal";
 import EditCardModal from "./components/EditCardModal";
 
 import { DtoCards } from "@/services/cards/dtoCards";
 import * as S from "./styles";
 import { ViewMode } from "@/enums/ViewMode";
+import { useCardsReactQuery } from "./hooks/useCards/useCardsReactQuery";
 
 const Home = () => {
   const [isOpenModalNewCard, setIsOpenModalNewCard] = useState(false);
@@ -29,23 +30,24 @@ const Home = () => {
     handleIsOpenModalEditCard();
   };
   const {
-    cards,
     loading,
-    handleSaveNewCard,
-    handleDeleteCard,
-    handleStatusCard,
-    handleUpdateCard,
-  } = useCards({
+    cards,
+    createCard,
+    removeCard,
+    updateStatusCard,
+    updateCard
+  } = useCardsReactQuery({
     isOpenModal: isOpenModalNewCard || isOpenModalEditCard,
     handleModal: isOpenModalNewCard
       ? handleIsOpenModalNewCard
       : handleIsOpenModalEditCard,
   });
+
   return (
     <S.Container>
       <NewCardModal
         isOpen={isOpenModalNewCard}
-        onSave={handleSaveNewCard}
+        onSave={createCard}
         onCancel={handleIsOpenModalNewCard}
         saveLoading={loading}
       />
@@ -54,7 +56,7 @@ const Home = () => {
         isOpen={isOpenModalEditCard}
         onCancel={handleIsOpenModalEditCard}
         saveLoading={loading}
-        onSaveEdit={handleUpdateCard}
+        onSaveEdit={updateCard}
         card={cardSelected}
         initialViewMode={initialViewMode}
       />
@@ -68,8 +70,8 @@ const Home = () => {
       </S.ContainerAddTask>
       <Columns
         cards={cards}
-        onDeleteCard={handleDeleteCard}
-        onChangeStatus={handleStatusCard}
+        onDeleteCard={(cardId) => removeCard(cardId)}
+        onChangeStatus={updateStatusCard}
         onEditCard={handleSelectedCard}
         onClickCard={handleSelectedCard}
       />
